@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/1_level_church.unity
+  isLoaded: 1
+  isActive: 1

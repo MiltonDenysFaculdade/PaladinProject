@@ -20,11 +20,16 @@ public class PlayerController : MonoBehaviour {
 
     bool grounded = false;
     bool jumping = false;
+    float jumpForce = 5.0f;
     float attackTimer = 0.0f;
+
+
     int attackIterator = 0;
+    public bool attackController = false;
     
     Animator animator;
     Transform cameraT;
+    Rigidbody characterRB;
 
 	// Use this for initialization
 	void Start () {
@@ -32,6 +37,7 @@ public class PlayerController : MonoBehaviour {
         animator = GetComponent<Animator>();
         cameraT = Camera.main.transform;
         transform.rotation = GameObject.FindGameObjectWithTag("MainCamera").transform.rotation;
+        characterRB = GetComponent<Rigidbody>();
 	}
 	
 
@@ -55,27 +61,17 @@ public class PlayerController : MonoBehaviour {
 
         float animationSpeedPercent = ((walking) ? 0.5f : 1f) * inputDir.magnitude;
         animator.SetFloat("speedPercent", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
-
-        if (attackIterator == 0)
-        {
-            transform.Translate(transform.forward * currentSpeed * Time.deltaTime, Space.World);
-        }
-
+        
 
         if (Input.GetMouseButtonUp(0) && grounded)
         {
             attackIterator += 1;
+            attackController = true;
             //Debug.Log("Attack Iterator " + attackIterator);
             attack();
         }
         
-        if (Input.GetKey(KeyCode.Space) && !jumping)
-        {
-            jumping = true;
-            this.gameObject.GetComponent<Rigidbody>().velocity = transform.TransformDirection(0, 7.0f, 0);
-            animator.SetBool("jumping", jumping);
-        }
-
+        
 	}
 
 
@@ -97,45 +93,53 @@ public class PlayerController : MonoBehaviour {
             //Debug.Log("Not grounded!");
         }
 
-
-
         if (attackIterator > 0)
         {
             attackTimer += Time.deltaTime;
-            if (attackTimer > 0.80f)
+            if (attackTimer > 0.90f)
             {
+                attackTimer = 0.0f;
                 attackIterator = 0;
                 animator.SetInteger("attackIterator", attackIterator);
-            }
+            } 
         }
 
+        if (attackIterator > 2 && attackTimer > 0)
+        {
+            attackIterator = 1;
+
+        }
+        
+        
 
     }
 
 
 
+    void FixedUpdate()
+    {
+        if(attackIterator == 0)
+            characterRB.MovePosition(transform.position + transform.forward * currentSpeed * Time.fixedDeltaTime);
+
+
+        if (Input.GetKey(KeyCode.Space) && !jumping)
+        {
+            jumping = true;
+            this.gameObject.GetComponent<Rigidbody>().velocity = transform.TransformDirection(0, jumpForce, 0);
+            animator.SetBool("jumping", jumping);
+        }
+
+    }
 
 
     void attack()
     {
 
-            if (attackIterator > 0)
-            {
-                attackTimer = 0;
-                animator.SetInteger("attackIterator", attackIterator);
-            }
-            else if (attackIterator > 1)
-            {
-                attackTimer = 0;
-                animator.SetInteger("attackIterator", attackIterator);
-            }
-            else if (attackIterator > 2)
-            {
-                attackTimer = 0;
-                animator.SetInteger("attackIterator", attackIterator);
-            }
+        
 
-
+        attackTimer = 0;
+        animator.SetInteger("attackIterator", attackIterator);
+                
     }
 
 

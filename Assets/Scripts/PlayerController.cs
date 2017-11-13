@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour {
     Transform cameraT;
     Rigidbody characterRB;
 
+
+
 	// Use this for initialization
 	void Start () {
 
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour {
         cameraT = Camera.main.transform;
         transform.rotation = GameObject.FindGameObjectWithTag("MainCamera").transform.rotation;
         characterRB = GetComponent<Rigidbody>();
+
 	}
 	
 
@@ -109,7 +112,6 @@ public class PlayerController : MonoBehaviour {
             attackIterator = 1;
 
         }
-        
         
 
     }

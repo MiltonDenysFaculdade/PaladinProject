@@ -81,4 +81,4 @@ Material:
     - _EmisColor: {r: 0.2, g: 0.2, b: 0.2, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _TintColor: {r: 0.20274653, g: 0.265295, b: 0.36764705, a: 0.503}
+    - _TintColor: {r: 0.18079586, g: 0.2182019, b: 0.2794118, a: 0.503}

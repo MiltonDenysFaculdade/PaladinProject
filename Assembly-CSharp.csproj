@@ -46,6 +46,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\0_main_menu\MenuCamera.cs" />
+     <Compile Include="Assets\0_main_menu\TempLoader.cs" />
+     <Compile Include="Assets\9_end_screen\CloseApplication.cs" />
+     <Compile Include="Assets\Scripts\EndPhaseCollider.cs" />
      <Compile Include="Assets\Scripts\FollowPlayer.cs" />
      <Compile Include="Assets\Scripts\MonsterBehavior.cs" />
      <Compile Include="Assets\Scripts\MonsterHit.cs" />
